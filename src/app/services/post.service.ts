@@ -1,4 +1,4 @@
-import { Post } from './../models/post';
+import { DataPosts } from './../models/dataPosts';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
@@ -12,9 +12,9 @@ export class PostService {
 
   constructor(private httpClient: HttpClient) { }
 
-  getAllPost():Observable<Post[]>{
+  getAllPost():Observable<DataPosts>{
     let path = this.apiUrl + 'posts/'
-    return this.httpClient.get<Post[]>(path);
+    return this.httpClient.get<DataPosts>(path);
   }
 
 }

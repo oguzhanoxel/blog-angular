@@ -1,6 +1,7 @@
+import { DataPosts } from './../../models/dataPosts';
 import { Component, OnInit } from '@angular/core';
-import { Post } from 'src/app/models/post';
 import { PostService } from 'src/app/services/post.service';
+import { Post } from 'src/app/models/post';
 
 @Component({
   selector: 'app-posts',
@@ -8,7 +9,7 @@ import { PostService } from 'src/app/services/post.service';
   styleUrls: ['./posts.component.css']
 })
 export class PostsComponent implements OnInit {
-  posts: Post[] = [];
+  posts: Post[];
 
   constructor(
     private postService: PostService,
@@ -20,7 +21,7 @@ export class PostsComponent implements OnInit {
 
   getAllPost(){
     this.postService.getAllPost().subscribe((response) => {
-      this.posts = response;
+      this.posts = response.results;
       console.log(this.posts)
     });
   }
