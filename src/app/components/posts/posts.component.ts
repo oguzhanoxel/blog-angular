@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { PostService } from 'src/app/services/post.service';
 import { Post } from 'src/app/models/post';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-posts',
@@ -11,22 +12,29 @@ export class PostsComponent implements OnInit {
   posts: Post[];
   listPostUrl = "http://localhost:8000/posts/";
   next: string;
-  isNext: boolean = false;
   previous: string;
-  isPrevious: boolean = false;
   last: string;
   first: string;
   pageNum: number;
 
   constructor(
     private postService: PostService,
+    private activatedRoute: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
-    this.getAllPost(this.listPostUrl);
+    this.activatedRoute.queryParams.subscribe(params => {
+      if (params["search"]) {
+        let searchUrl = this.listPostUrl + "?search=" + params["search"]
+        this.getAllPost(searchUrl);
+      }
+      else {
+        this.getAllPost(this.listPostUrl);
+      }
+    });
   }
 
-  getAllPost(url: string){
+  getAllPost(url: string) {
     this.postService.getAllPost(url).subscribe((response) => {
       this.posts = response.results;
       this.pageNum = response.page_number;
@@ -34,11 +42,9 @@ export class PostsComponent implements OnInit {
       this.first = response.first_page;
       if (response.next) {
         this.next = response.next;
-        this.isNext = true;
       }
       if (response.previous) {
         this.previous = response.previous;
-        this.isPrevious = true;
       }
     });
   }
@@ -52,10 +58,12 @@ export class PostsComponent implements OnInit {
   }
 
   lastPage() {
+    this.next = this.last
     this.getAllPost(this.last)
   }
 
   firstPage() {
+    this.previous = this.first
     this.getAllPost(this.first)
   }
 }

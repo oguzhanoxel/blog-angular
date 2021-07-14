@@ -6,17 +6,24 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { PostsComponent } from './components/posts/posts.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
+import { SideWidgetsComponent } from './components/side-widgets/side-widgets.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { PostDetailComponent } from './components/post-detail/post-detail.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     PostsComponent,
-    NavbarComponent
+    NavbarComponent,
+    SideWidgetsComponent,
+    PostDetailComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
