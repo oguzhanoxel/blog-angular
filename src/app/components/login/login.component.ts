@@ -45,7 +45,7 @@ export class LoginComponent implements OnInit {
         this.router.navigate(['/posts'])
       });
     }else{
-      console.log("empty field")
+      console.log("login form not valid")
     }
   }
 }
